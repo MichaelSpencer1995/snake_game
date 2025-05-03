@@ -8,12 +8,40 @@
         body {
             background: black;
         }
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 120px;
+        }
+        #moniter {
+            display: flex;
+        }
     </style>
 </head>
 <body>
-    
+    <div class="game-container">
+        <div id="moniter"></div>
+    </div>
 </body>
 <script>
-    console.log('test')
+
+const injectionSite = document.getElementById('moniter')
+const gameSize = 15
+const pixelSize = 30
+
+for(let i = 0; i < gameSize; i++) {
+    let pixelRowContainer = document.createElement('div')
+    for(let j = 0; j < gameSize; j++) {
+        let pixel = document.createElement('div')
+        pixel.style.width = pixelSize + "px"
+        pixel.style.height = pixelSize + "px"
+        pixel.style.border = "white 1px solid"
+        pixelRowContainer.appendChild(pixel)
+    }
+    injectionSite.appendChild(pixelRowContainer)
+}
+
+
 </script>
 </html>
