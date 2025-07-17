@@ -13,14 +13,28 @@
             flex-direction: column;
             align-items: center;
             margin-top: 120px;
+            /* position: relative; */
+        }
+        #start-button {
+            /* position: absolute;
+            top: 50%;
+            left: 50%; */
         }
         #moniter {
             display: flex;
+            border: white 4px solid;
+        }
+        #score {
+            color: #fff;
+            font-size: 25px;
+
         }
     </style>
 </head>
 <body>
     <div class="game-container">
+        <button id="start-button">Start</button>
+        <div id="score">0</div>
         <div id="moniter"></div>
     </div>
 </body>
@@ -30,16 +44,29 @@ const injectionSite = document.getElementById('moniter')
 const gameSize = 15
 const pixelSize = 30
 
-for(let i = 0; i < gameSize; i++) {
-    let pixelRowContainer = document.createElement('div')
-    for(let j = 0; j < gameSize; j++) {
-        let pixel = document.createElement('div')
-        pixel.style.width = pixelSize + "px"
-        pixel.style.height = pixelSize + "px"
-        pixel.style.border = "white 1px solid"
-        pixelRowContainer.appendChild(pixel)
+
+function createGameBoard() {
+    for(let i = 0; i < gameSize; i++) {
+        let pixelRowContainer = document.createElement('div')
+        for(let j = 0; j < gameSize; j++) {
+            let pixel = document.createElement('div')
+            pixel.style.width = pixelSize + "px"
+            pixel.style.height = pixelSize + "px"
+            pixel.style.border = "white 1px solid"
+            pixelRowContainer.appendChild(pixel)
+        }
+        injectionSite.appendChild(pixelRowContainer)
     }
-    injectionSite.appendChild(pixelRowContainer)
+}
+
+createGameBoard()
+
+const $startButton = document.getElementById('start-button')
+
+$startButton.addEventListener('click', startGame)
+
+function startGame() {
+    console.log('lol')
 }
 
 
