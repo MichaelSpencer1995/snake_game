@@ -1,17 +1,20 @@
-import Moniter from './components/moniter.js'
 import HtmlAndCssHandler from './components/html_and_css_handler.js'
 
 
 export default class SnakeGame {
     constructor(dimensions) {
-        this.htmlAndCssHandler = new HtmlAndCssHandler(this.startGame)
-        this.moniter = new Moniter(dimensions[0], dimensions[1])
+        this.htmlAndCssHandler = new HtmlAndCssHandler(dimensions[0], dimensions[1], () => this.startGame())
+        this.matrix = []
+    }
+    nextFrame() {
+        console.log('frame counter')
     }
     startGame() {
-        console.log('does this work ahhh')
+        setInterval(() => {
+            this.nextFrame()
+        }, 150)
     }
     main() {
-        this.htmlAndCssHandler.main()
-        this.moniter.main()
+        this.matrix = this.htmlAndCssHandler.main()
     }
 }

@@ -1,7 +1,9 @@
 export default class HtmlAndCssHandler {
-    constructor(startButtonsCallback) {
+    constructor(gameSize, pixelSize, startButtonsCallback) {
         this.startButtonsText = "Start"
         this.startButtonsCallback = startButtonsCallback
+        this.gameSize = gameSize
+        this.pixelSize = pixelSize
     }
     setTitle() {
         document.title = "Classic Snake 2D"
@@ -53,16 +55,40 @@ export default class HtmlAndCssHandler {
 
         root.setAttribute('id', 'root')
         root.appendChild(gamesContainerDiv)
-
         document.body.appendChild(root)
+
+        if(this.gameSize < 7 || this.gameSize > 31 || this.gameSize % 2 == 0) {
+            console.error('invalid gameboard size, gameboard size must an odd numbered integer between 7 and 31')
+            return
+        }
+
+        let matrix = []
+        for(let i = 0; i < this.gameSize; i++) {
+        let pixelRowContainer = document.createElement('div')
+        matrix.push([])
+            for(let j = 0; j < this.gameSize; j++) {
+                let pixel = document.createElement('div')
+                pixel.style.width = this.pixelSize + "px"
+                pixel.style.height = this.pixelSize + "px"
+                pixel.style.border = "white 1px solid"
+                pixelRowContainer.appendChild(pixel)
+
+                matrix[i].push({
+                    color: null
+                })
+            }
+            moniter.appendChild(pixelRowContainer)
+        }
+        return matrix
     }
     attachStartButtonsEventHandler() {
-        startButton.addEventListener('click', this.startButtonsCallback)
+        startButton.addEventListener('click', () => this.startButtonsCallback())
     }
     main() {
         this.setTitle()
         this.attachCSS()
-        this.attachHTML()
+        let matrix = this.attachHTML()
         this.attachStartButtonsEventHandler()
+        return matrix
     }
 }
